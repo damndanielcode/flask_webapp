@@ -34,7 +34,6 @@ app.config['SECRET_KEY'] = os.urandom(32)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 moment = Moment(app)
 
-
 #----------------------------------------------------------------------------#
 # Filters.
 #----------------------------------------------------------------------------#

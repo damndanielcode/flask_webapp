@@ -28,3 +28,5 @@ htmlcov/
 notes.txt
 package-lock.json
 package.json
+
+env_variables.yaml

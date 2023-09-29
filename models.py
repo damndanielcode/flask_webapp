@@ -3,11 +3,15 @@ from sqlalchemy import Column, String, Integer, ForeignKey, Boolean, DateTime
 import os
 
 # For using locally
-database_name = 'test'
-database_path = "postgres://{}:{}@{}:{}/{}".format('root', 'Passw0rd', 'localhost', '5432', database_name)
+#database_path = "postgresql://{}:{}@{}:{}/{}".format(db_user_name, db_password, db_host, '5432', database_name)
 
 # For production
-#database_path = os.environ['DATABASE_URL']
+database_name = os.environ.get('DB_NAME')
+db_user_name = os.environ.get('DB_USER_NAME')
+db_password = os.environ.get('DB_PASSWORD')
+db_host = os.environ.get('DB_HOST')
+db_connector = os.environ.get('DB_CONNECTOR')
+database_path = "{}://{}:{}@{}:{}/{}".format(db_connector, db_user_name, db_password, db_host, '5432', database_name)
 
 db = SQLAlchemy()
 
