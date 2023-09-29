@@ -11,7 +11,8 @@ db_user_name = os.environ.get('DB_USER_NAME')
 db_password = os.environ.get('DB_PASSWORD')
 db_host = os.environ.get('DB_HOST')
 db_connector = os.environ.get('DB_CONNECTOR')
-database_path = "{}://{}:{}@{}:{}/{}".format(db_connector, db_user_name, db_password, db_host, '5432', database_name)
+db_port = os.environ.get('DB_PORT')
+database_path = "{}://{}:{}@{}:{}/{}".format(db_connector, db_user_name, db_password, db_host, db_port, database_name)
 
 db = SQLAlchemy()
 
