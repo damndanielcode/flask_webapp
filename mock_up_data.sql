@@ -1,3 +1,5 @@
+GRANT ALL PRIVILEGES ON DATABASE fyyur TO john;
+
 -- Venue
 INSERT INTO "Venue" VALUES (1, 'The Musical Hop', 'Jazz, Reggae, Swing, Classical, Folk', '1015 Folsom Street', 'San Francisco', 'CA', '123-123-1234', 'https://www.themusicalhop.com', 'https://www.facebook.com/TheMusicalHop', TRUE, 'We are on the lookout for a local artist to play every two weeks. Please call us.', 'https://images.unsplash.com/photo-1543900694-133f37abaaa5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60');
 INSERT INTO "Venue" VALUES (2, 'The Dueling Pianos Bar', 'Classical, R&B, Hip-Hop', '335 Delancey Street', 'New York', 'NY', '914-003-1132', 'https://www.theduelingpianos.com', 'https://www.facebook.com/theduelingpianos', FALSE, null, 'https://images.unsplash.com/photo-1497032205916-ac775f0649ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80');
