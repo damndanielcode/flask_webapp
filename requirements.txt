@@ -12,6 +12,7 @@ Markdown==2.6.9
 MarkupSafe==2.0.1
 psycopg2
 postgres
+pg8000
 python-dateutil==2.6.0
 SQLAlchemy==1.4.39
 Werkzeug==2.0.3
