@@ -78,3 +78,35 @@ FLASK_APP=app.py
 FLASK_ENV=development
 flask run --reload
 ```
+
+## Deploying to Google Cloud
+
+1. Open the Google Cloud Shell and execute the following command:
+
+```
+git clone https://github.com/John0Isaac/Flask-WebApp-with-PostgreSQL-DB.git
+cd Flask-WebApp-with-PostgreSQL-DB
+```
+
+2. Create the env_variables.yaml file that contains your secret environment variables.
+
+```
+nano env_variables.yaml
+```
+
+3. Add your Google Cloud SQL database connection details
+```
+env_variables:
+  DB_USER_NAME: 'secret'
+  DB_PASSWORD: 'secret'
+  DB_NAME: 'secret'
+  DB_HOST: '111.111.111.111'
+  DB_PORT: '5432'
+  DB_CONNECTOR: 'postgresql'
+```
+
+4. save and exit the file CTRL+x followed by y followed by Enter.
+5. Deploy the web application.
+```
+gcloud app deploy app.yaml
+```
