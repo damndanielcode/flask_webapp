@@ -24,15 +24,28 @@ from datetime import datetime, timezone
 from sqlalchemy import or_, desc
 import sys
 import os
-from models import db, setup_db, Artist, Venue, Show
+from models import db, Artist, Venue, Show
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
 
+database_name = os.environ.get('DB_NAME')
+db_user_name = os.environ.get('DB_USER_NAME')
+db_password = os.environ.get('DB_PASSWORD')
+db_host = os.environ.get('DB_HOST')
+db_connector = os.environ.get('DB_CONNECTOR')
+db_port = os.environ.get('DB_PORT')
+database_path = "{}://{}:{}@{}:{}/{}".format(db_connector, db_user_name, db_password, db_host, db_port, database_name)
+
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = os.urandom(32)
+app.config["SQLALCHEMY_DATABASE_URI"] = database_path
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 moment = Moment(app)
+db.app = app
+db.init_app(app)
 
 #----------------------------------------------------------------------------#
 # Filters.
