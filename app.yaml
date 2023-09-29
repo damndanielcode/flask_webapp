@@ -1,5 +1,5 @@
 runtime: python38
-entrypoint: gunicorn -b :$PORT app:app --timeout 120 --workers=3
+entrypoint: gunicorn -b :$PORT app:app --timeout 120 --workers=3 --threads=3 --worker-connections=1000
 
 includes:
   - env_variables.yaml
