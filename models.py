@@ -16,7 +16,7 @@ unix_socket_path = os.environ.get('INSTANCE_UNIX_SOCKET')
 #database_path = "{}://{}:{}@{}:{}/{}".format(db_connector, db_user_name, db_password, db_host, db_port, database_name)
 
 #for unix connection
-database_path = "{}://{}:{}@/{}?host={}".format(db_connector, db_user_name, db_password, db_name, unix_socket_path)
+database_path = "{}://{}:{}@/{}?unix_sock={}/.s.PGSQL.5432".format(db_connector, db_user_name, db_password, db_name, unix_socket_path)
 
 # Equivalent URL:
 # postgresql+pg8000://<db_user>:<db_pass>@/<db_name>
