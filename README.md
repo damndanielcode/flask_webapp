@@ -102,7 +102,9 @@ env_variables:
   DB_NAME: 'secret'
   DB_HOST: '111.111.111.111'
   DB_PORT: '5432'
-  DB_CONNECTOR: 'postgresql'
+  DB_CONNECTOR: 'postgresql+pg8000'
+  INSTANCE_UNIX_SOCKET: '/cloudsql/Connection name'
+  DEPLOYMENT_LOCATION: 'gcp'
 ```
 
 4. save and exit the file CTRL+x followed by y followed by Enter.
