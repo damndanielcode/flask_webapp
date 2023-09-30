@@ -30,11 +30,9 @@ from models import setup_db, db, Artist, Venue, Show
 #----------------------------------------------------------------------------#
 
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = os.urandom(32)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-moment = Moment(app)
 
+moment = Moment(app)
 setup_db(app)
 
 #----------------------------------------------------------------------------#

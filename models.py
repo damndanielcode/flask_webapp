@@ -2,44 +2,22 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, engine, Column, String, Integer, ForeignKey, Boolean, DateTime
 import os
 
-# For using locally
-#database_path = "postgresql://{}:{}@{}:{}/{}".format(db_user_name, db_password, db_host, '5432', database_name)
 
-# For production
+deployment_location = os.environ.get('DEPLOYMENT_LOCATION')
 db_name = os.environ.get('DB_NAME')
 db_user_name = os.environ.get('DB_USER_NAME')
 db_password = os.environ.get('DB_PASSWORD')
-db_host = os.environ.get('DB_HOST')
 db_connector = os.environ.get('DB_CONNECTOR')
 db_port = os.environ.get('DB_PORT')
-unix_socket_path = os.environ.get('INSTANCE_UNIX_SOCKET')
-#database_path = "{}://{}:{}@{}:{}/{}".format(db_connector, db_user_name, db_password, db_host, db_port, database_name)
 
-#for unix connection
-database_path = "{}://{}:{}@/{}?unix_sock={}/.s.PGSQL.5432".format(db_connector, db_user_name, db_password, db_name, unix_socket_path)
 
-# Equivalent URL:
-# postgresql+pg8000://<db_user>:<db_pass>@/<db_name>
-#                         ?unix_sock=<INSTANCE_UNIX_SOCKET>/.s.PGSQL.5432
-# Note: Some drivers require the `unix_sock` query parameter to use a different key.
-# For example, 'psycopg2' uses the path set to `host` in order to connect successfully.
+if deployment_location == "local":
+   db_host = os.environ.get('DB_HOST')
+   database_path = "{}://{}:{}@{}:{}/{}".format(db_connector, db_user_name, db_password, db_host, db_port, db_name)
 
-# [START_EXCLUDE]
-# Pool size is the maximum number of permanent connections to keep.
-#pool_size=5,
-# Temporarily exceeds the set pool_size if no connections are available.
-#max_overflow=2,
-# The total number of concurrent connections for your application will be
-# a total of pool_size and max_overflow.
-# 'pool_timeout' is the maximum number of seconds to wait when retrieving a
-# new connection from the pool. After the specified amount of time, an
-# exception will be thrown.
-#pool_timeout=30,  # 30 seconds
-# 'pool_recycle' is the maximum number of seconds a connection can persist.
-# Connections that live longer than the specified amount of time will be
-# re-established
-#pool_recycle=1800,  # 30 minutes
-
+elif deployment_location == "gcp":
+    unix_socket_path = os.environ.get('INSTANCE_UNIX_SOCKET')
+    database_path = "{}://{}:{}@/{}?unix_sock={}/.s.PGSQL.{}".format(db_connector, db_user_name, db_password, db_name, unix_socket_path, db_port)
 
 db = SQLAlchemy()
 
