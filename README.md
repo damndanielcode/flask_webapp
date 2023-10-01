@@ -112,3 +112,14 @@ env_variables:
 ```
 gcloud app deploy app.yaml
 ```
+
+
+## Deploying After Deleting Everything
+1. Create PostgreSQL Instance, fyyur DB, john User.
+2. Import Data dump.
+3. Add your IP to the Instance Network.
+4. Pull the code to the Cloud Shell.
+5. Create environment variables .yaml file.
+6. Enable App Engine.
+7. execute the following command `gcloud beta app repair`.
+8. execute the following command `gcloud app deploy --no-cache`.
