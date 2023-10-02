@@ -19,6 +19,17 @@ elif deployment_location == "gcp":
     unix_socket_path = os.environ.get('INSTANCE_UNIX_SOCKET')
     database_path = "{}://{}:{}@/{}?unix_sock={}/.s.PGSQL.{}".format(db_connector, db_user_name, db_password, db_name, unix_socket_path, db_port)
 
+elif deployment_location == "microsoft":
+    conn_str = os.environ.get('AZURE_POSTGRESQL_CONNECTIONSTRING')
+    conn_str_params = {pair.split('=')[0]: pair.split('=')[1] for pair in conn_str.split(' ')}
+    database_path = '{dbconnector}://{dbuser}:{dbpass}@{dbhost}/{dbname}'.format(
+        dbconnector=db_connector,
+        dbuser=conn_str_params['user'],
+        dbpass=conn_str_params['password'],
+        dbhost=conn_str_params['host'],
+        dbname=conn_str_params['dbname']
+    )
+
 db = SQLAlchemy()
 
 '''
