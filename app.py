@@ -130,7 +130,7 @@ def show_venue(venue_id):
                   "artist_id": show.artist_id,
                   "artist_name": artist.name,
                   "artist_image_link": artist.image_link,
-                  "start_time": show.start_time.strftime('%m/%d/%Y'),
+                  "start_time": show.start_time.strftime('%m/%d/%Y, %I:%M %p'),
                   })
         for show in past_shows:
             if len(past_shows) == 0:
@@ -141,7 +141,7 @@ def show_venue(venue_id):
                   "artist_id": show.artist_id,
                   "artist_name": artist.name,
                   "artist_image_link": artist.image_link,
-                  "start_time": show.start_time.strftime('%m/%d/%Y'),
+                  "start_time": show.start_time.strftime('%m/%d/%Y, %I:%M %p'),
                   })
         data.update({"upcoming_shows": up_show})
         data.update({"past_shows": down_show})
@@ -258,7 +258,7 @@ def show_artist(artist_id):
                   "venue_id": show.venue_id,
                   "venue_name": venue.name,
                   "venue_image_link": venue.image_link,
-                  "start_time": show.start_time.strftime('%m/%d/%Y'),
+                  "start_time": show.start_time.strftime('%m/%d/%Y, %I:%M %p'),
                   })
         for show in past_shows:
             if len(past_shows) == 0:
@@ -269,7 +269,7 @@ def show_artist(artist_id):
                   "venue_id": show.venue_id,
                   "venue_name": venue.name,
                   "venue_image_link": venue.image_link,
-                  "start_time": show.start_time.strftime('%m/%d/%Y'),
+                  "start_time": show.start_time.strftime('%m/%d/%Y, %I:%M %p'),
                   })
         data.update({"upcoming_shows": up_show})
         data.update({"past_shows": down_show})
@@ -438,7 +438,7 @@ def shows():
           "artist_id": show.artist_id,
           "artist_name":artist.name,
           "artist_image_link": artist.image_link,
-          "start_time": show.start_time.strftime('%m/%d/%Y')
+          "start_time": show.start_time.strftime('%m/%d/%Y, %I:%M %p')
         })
   return render_template('pages/shows.html', shows=data)
 
