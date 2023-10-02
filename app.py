@@ -18,7 +18,7 @@ from flask import (
 from flask_moment import Moment
 import logging
 from logging import Formatter, FileHandler
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from forms import *
 from datetime import datetime, timezone
 from sqlalchemy import or_, desc
