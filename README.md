@@ -115,11 +115,20 @@ gcloud app deploy app.yaml
 
 
 ## Deploying After Deleting Everything
-1. Create PostgreSQL Instance, fyyur DB, john User.
+1. Create a Cloud SQL instance using the following parameters:
+    - Specify instance name and password.
+    - Select production instead of production plus.
+    - Select Single Zone.
+    - Specify the machine configuration of 2 vCPUs and 8 GB Memory.
+    - Select the smallest storage option available 10 GB.
+    - Add your IP to the Instance Network.
+    - Select Create.
+    - Create a database and call it fyyur.
+    - Create a user and call it john.
+    - Grant All privileges to user john.
 2. Import Data dump.
-3. Add your IP to the Instance Network.
-4. Pull the code to the Cloud Shell.
-5. Create environment variables .yaml file.
-6. Enable App Engine.
-7. execute the following command `gcloud beta app repair`.
-8. execute the following command `gcloud app deploy --no-cache`.
+3. Pull the code to the Cloud Shell.
+4. Create environment variables .yaml file.
+5. Enable App Engine.
+6. execute the following command `gcloud beta app repair`.
+7. execute the following command `gcloud app deploy --no-cache`.
