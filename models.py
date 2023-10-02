@@ -22,7 +22,7 @@ elif deployment_location == "gcp":
 elif deployment_location == "microsoft":
     conn_str = os.environ.get('AZURE_POSTGRESQL_CONNECTIONSTRING')
     conn_str_params = {pair.split('=')[0]: pair.split('=')[1] for pair in conn_str.split(' ')}
-    database_path = 'postgresql+pg8000://{dbuser}:{dbpass}@{dbhost}/{dbname}'.format(
+    database_path = 'postgresql+psycopg2://{dbuser}:{dbpass}@{dbhost}/{dbname}'.format(
         dbuser=conn_str_params['user'],
         dbpass=conn_str_params['password'],
         dbhost=conn_str_params['host'],
