@@ -9,11 +9,11 @@ INSERT INTO "Artist" VALUES (4, 'Guns N Petals', 'Rock n Roll', 'San Francisco',
 INSERT INTO "Artist" VALUES (5, 'Matt Quevedo', 'Jazz', 'New York', 'NY', '300-400-5000', 'https://www.theduelingpianos.com', null, FALSE, null, 'https://images.unsplash.com/photo-1495223153807-b916f75de8c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80');
 INSERT INTO "Artist" VALUES (6, 'The Wild Sax Band', 'Jazz, Classical', 'San Francisco', 'CA', '432-325-5432', null, null, FALSE, null, 'https://images.unsplash.com/photo-1558369981-f9ca78462e61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=794&q=80');
 -- Show
-INSERT INTO "Show" VALUES (1, 1, 4, '2019-05-21T21:30:00.000Z');
-INSERT INTO "Show" VALUES (2, 3, 5, '2019-06-15T23:00:00.000Z');
-INSERT INTO "Show" VALUES (3, 3, 6, '2035-04-01T20:00:00.000Z');
-INSERT INTO "Show" VALUES (4, 3, 6, '2035-04-08T20:00:00.000Z');
-INSERT INTO "Show" VALUES (5, 3, 6, '2035-04-15T20:00:00.000Z');
+INSERT INTO "Show" VALUES (1, 1, 4, '2023-07-05T21:00:00.000Z');
+INSERT INTO "Show" VALUES (2, 2, 5, '2023-08-10T23:00:00.000Z');
+INSERT INTO "Show" VALUES (3, 3, 6, '2023-09-01T20:00:00.000Z');
+INSERT INTO "Show" VALUES (4, 1, 4, '2023-10-25T20:00:00.000Z');
+INSERT INTO "Show" VALUES (5, 2, 5, '2023-11-15T20:00:00.000Z');
 
 -- Fix Id Sequence
 SELECT setval('"Venue_id_seq"', (SELECT MAX(id) from "Venue"));
