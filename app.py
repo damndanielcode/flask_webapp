@@ -25,15 +25,18 @@ from sqlalchemy import or_, desc
 import sys
 import os
 from models import setup_db, db, Artist, Venue, Show
+from check_db.check_db import requires_db
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(32)
+deployment_location = os.environ.get('DEPLOYMENT_LOCATION')
 
 moment = Moment(app)
-setup_db(app)
+if deployment_location:
+  setup_db(app)
 
 #----------------------------------------------------------------------------#
 # Filters.
@@ -62,6 +65,7 @@ def index():
 #  ----------------------------------------------------------------
 
 @app.route('/venues')
+@requires_db()
 def venues():
   cities = db.session.query(Venue.city).group_by(Venue.city).all()
   current_time = datetime.now(timezone.utc)
@@ -90,6 +94,7 @@ def venues():
   return render_template('pages/venues.html', areas=data)
 
 @app.route('/venues/search', methods=['POST'])
+@requires_db()
 def search_venues():
   term = request.form.get('search_term')
   search = "%{}%".format(term.lower())
@@ -98,6 +103,7 @@ def search_venues():
   return render_template('pages/search_venues.html', results=response, search_term=request.form.get('search_term', ''))
 
 @app.route('/venues/<int:venue_id>')
+@requires_db()
 def show_venue(venue_id):
   venue = db.session.query(Venue).filter(Venue.id == venue_id).all()
   current_time = datetime.now(timezone.utc)
@@ -152,11 +158,13 @@ def show_venue(venue_id):
 #  ----------------------------------------------------------------
 
 @app.route('/venues/create', methods=['GET'])
+@requires_db()
 def create_venue_form():
   form = VenueForm()
   return render_template('forms/new_venue.html', form=form)
 
 @app.route('/venues/create', methods=['POST'])
+@requires_db()
 def create_venue_submission():
   error = False
   try:
@@ -189,6 +197,7 @@ def create_venue_submission():
   return render_template('pages/home.html')
 
 @app.route('/venues/<venue_id>/delete', methods=['DELETE'])
+@requires_db()
 def delete_venue(venue_id):
   error = False
   try:
@@ -208,6 +217,7 @@ def delete_venue(venue_id):
 #  Artists
 #  ----------------------------------------------------------------
 @app.route('/artists')
+@requires_db()
 def artists():
   data=[]
   artists = db.session.query(Artist).order_by('id').all()
@@ -219,6 +229,7 @@ def artists():
   return render_template('pages/artists.html', artists=data)
 
 @app.route('/artists/search', methods=['POST'])
+@requires_db()
 def search_artists():
   term = request.form.get('search_term')
   search = "%{}%".format(term.lower())
@@ -227,6 +238,7 @@ def search_artists():
   return render_template('pages/search_artists.html', results=response, search_term=request.form.get('search_term', ''))
 
 @app.route('/artists/<int:artist_id>')
+@requires_db()
 def show_artist(artist_id):
   artist = db.session.query(Artist).filter(Artist.id == artist_id).all()
   current_time = datetime.now(timezone.utc)
@@ -279,6 +291,7 @@ def show_artist(artist_id):
 #  Update
 #  ----------------------------------------------------------------
 @app.route('/artists/<int:artist_id>/edit', methods=['GET'])
+@requires_db()
 def edit_artist(artist_id):
   form = ArtistForm()
   data = Artist.query.get(artist_id)
@@ -298,6 +311,7 @@ def edit_artist(artist_id):
   return render_template('forms/edit_artist.html', form=form, artist=artist)
 
 @app.route('/artists/<int:artist_id>/edit', methods=['POST'])
+@requires_db()
 def edit_artist_submission(artist_id):
   try:
     data = Artist.query.get(artist_id)
@@ -323,6 +337,7 @@ def edit_artist_submission(artist_id):
   return redirect(url_for('show_artist', artist_id=artist_id))
 
 @app.route('/venues/<int:venue_id>/edit', methods=['GET'])
+@requires_db()
 def edit_venue(venue_id):
   form = VenueForm()
   data = Venue.query.get(venue_id)
@@ -343,6 +358,7 @@ def edit_venue(venue_id):
   return render_template('forms/edit_venue.html', form=form, venue=venue)
 
 @app.route('/venues/<int:venue_id>/edit', methods=['POST'])
+@requires_db()
 def edit_venue_submission(venue_id):
   try:
     data = Venue.query.get(venue_id)
@@ -371,11 +387,13 @@ def edit_venue_submission(venue_id):
 #  ----------------------------------------------------------------
 
 @app.route('/artists/create', methods=['GET'])
+@requires_db()
 def create_artist_form():
   form = ArtistForm()
   return render_template('forms/new_artist.html', form=form)
 
 @app.route('/artists/create', methods=['POST'])
+@requires_db()
 def create_artist_submission():
   error = False
   try:
@@ -406,6 +424,7 @@ def create_artist_submission():
   return render_template('pages/home.html')
 
 @app.route('/artists/<artist_id>/delete', methods=['DELETE'])
+@requires_db()
 def delete_artist(artist_id):
   error = False
   try:
@@ -426,6 +445,7 @@ def delete_artist(artist_id):
 #  ----------------------------------------------------------------
 
 @app.route('/shows')
+@requires_db()
 def shows():
   data = []
   shows = db.session.query(Show).order_by(desc(Show.start_time)).all()
@@ -443,12 +463,14 @@ def shows():
   return render_template('pages/shows.html', shows=data)
 
 @app.route('/shows/create')
+@requires_db()
 def create_shows():
   # renders form. do not touch.
   form = ShowForm()
   return render_template('forms/new_show.html', form=form)
 
 @app.route('/shows/create', methods=['POST'])
+@requires_db()
 def create_show_submission():
   error=False
   try:
@@ -470,6 +492,10 @@ def create_show_submission():
     flash('An error occurred. Show could not be listed.')
     abort(500)
   return render_template('pages/home.html')
+
+@app.errorhandler(400)
+def not_found_error(error):
+    return render_template('errors/400.html'), 400
 
 @app.errorhandler(404)
 def not_found_error(error):

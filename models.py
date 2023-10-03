@@ -29,6 +29,9 @@ elif deployment_location == "microsoft":
         dbname=conn_str_params['dbname']
     )
 
+else:
+    database_path = ""
+
 db = SQLAlchemy()
 
 '''
