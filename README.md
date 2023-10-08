@@ -106,7 +106,7 @@ gcloud app deploy app.yaml
 ```
 
 
-## Deploying After Deleting Everything
+## Deploying After Deleting Everything from Google Cloud
 1. Create a Cloud SQL instance using the following parameters:
     - Specify instance name and password.
     - Select production instead of production plus.
