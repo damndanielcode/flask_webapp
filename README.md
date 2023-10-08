@@ -71,14 +71,6 @@ def NEW_UNIQUE_NAME():
     return render_template('FOLDER_PATH/FILE_PATH.html')
 ```
 
-## To run the development server
-* Open git bash terminal
-```bash
-FLASK_APP=app.py
-FLASK_ENV=development
-flask run --reload
-```
-
 ## Deploying to Google Cloud
 
 1. Open the Google Cloud Shell and execute the following command:
