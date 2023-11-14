@@ -33,8 +33,8 @@ app = Flask(__name__)
 moment = Moment(app)
 app.config.from_object('config')
 
-if app.config['DEPLOYMENT_LOCATION']:
-  setup_db(app)
+#if app.config['DEPLOYMENT_LOCATION']:
+setup_db(app)
 
 #----------------------------------------------------------------------------#
 # Filters.
