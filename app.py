@@ -32,11 +32,10 @@ from check_db.check_db import requires_db
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(32)
-deployment_location = 'microsoft'
 
 moment = Moment(app)
-if deployment_location:
-  setup_db(app)
+
+setup_db(app)
 
 #----------------------------------------------------------------------------#
 # Filters.
