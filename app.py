@@ -23,6 +23,7 @@ from forms import *
 from datetime import datetime, timezone
 from sqlalchemy import or_, desc
 import sys
+import os
 from models import setup_db, db, Artist, Venue, Show
 from check_db.check_db import requires_db
 #----------------------------------------------------------------------------#
@@ -30,11 +31,12 @@ from check_db.check_db import requires_db
 #----------------------------------------------------------------------------#
 
 app = Flask(__name__)
-moment = Moment(app)
-app.config.from_object('config')
+app.config['SECRET_KEY'] = os.urandom(32)
+deployment_location = 'microsoft'
 
-#if app.config['DEPLOYMENT_LOCATION']:
-setup_db(app)
+moment = Moment(app)
+if deployment_location:
+  setup_db(app)
 
 #----------------------------------------------------------------------------#
 # Filters.
