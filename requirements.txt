@@ -14,5 +14,6 @@ psycopg2
 postgres
 pg8000
 python-dateutil==2.6.0
+python-dotenv-1.0.0
 SQLAlchemy==1.4.39
 Werkzeug==2.0.3
