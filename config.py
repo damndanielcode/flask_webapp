@@ -1,19 +1,15 @@
 import os
-from os.path import join, dirname
-from dotenv import load_dotenv
-
-dotenv_path = join(dirname(__file__), 'vars.env')
-load_dotenv(dotenv_path)
 
 # Grabs the folder where the script runs.
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 SECRET_KEY=os.urandom(32)
-DEPLOYMENT_LOCATION=os.environ.get('DEPLOYMENT_LOCATION')
+deployment_location='microsoft'
 
 SQLALCHEMY_TRACK_MODIFICATIONS=False
 
-deployment_location = os.environ.get('DEPLOYMENT_LOCATION')
+DEPLOYMENT_LOCATION=deployment_location
+
 db_name = os.environ.get('DB_NAME')
 db_user_name = os.environ.get('DB_USER_NAME')
 db_password = os.environ.get('DB_PASSWORD')
