@@ -21,8 +21,8 @@ import os
 #     database_path = "{}://{}:{}@/{}?unix_sock={}/.s.PGSQL.{}".format(db_connector, db_user_name, db_password, db_name, unix_socket_path, db_port)
 
 # elif deployment_location == "microsoft":
-database_path = os.environ.get('AZURE_POSTGRESQL_CONNECTIONSTRING')
 
+database_path = os.environ.get('AZURE_POSTGRESQL_CONNECTIONSTRING')
 
 # else:
 #     database_path = ""
@@ -36,13 +36,14 @@ db = SQLAlchemy()
 '''
 
 def setup_db(app, database_path=database_path):
-    conn_str_params = {pair.split('=')[0]: pair.split('=')[1] for pair in database_path.split(' ')}
+    conn_str_params = {pair.split('=')[0]: pair.split('=')[1] for pair in database_path.split(';')}
     database_path = 'postgresql://{dbuser}:{dbpass}@{dbhost}/{dbname}'.format(
-        dbuser=conn_str_params['user'],
-        dbpass=conn_str_params['password'],
-        dbhost=conn_str_params['host'],
-        dbname=conn_str_params['dbname']
+        dbuser=conn_str_params['User Id'],
+        dbpass=conn_str_params['Password'],
+        dbhost=conn_str_params['Server'],
+        dbname=conn_str_params['Database']
     )
+    print(database_path)
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
