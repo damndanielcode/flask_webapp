@@ -5,9 +5,7 @@ def requires_db():
     def requires_db_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            try:
-                connection_string = app.config["SQLALCHEMY_DATABASE_URI"]
-            except:
+            if app.config.get('DATABASE_URI') is None:
                 abort(400)
             return f(*args, **kwargs)
         return wrapper
