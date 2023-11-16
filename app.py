@@ -35,7 +35,12 @@ app.config['SECRET_KEY'] = os.urandom(32)
 
 moment = Moment(app)
 
-setup_db(app)
+if os.environ.get('DEPLOYMENT_LOCATION') == 'gcp':
+    app.config.from_object('environment.gcp_production')
+    setup_db(app)
+elif os.environ.get('DEPLOYMENT_LOCATION') == 'azure':
+    app.config.from_object('environment.azure_production')
+    setup_db(app)
 
 #----------------------------------------------------------------------------#
 # Filters.

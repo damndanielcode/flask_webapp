@@ -3,30 +3,6 @@ from sqlalchemy import create_engine, engine, Column, String, Integer, ForeignKe
 import os
 
 
-# deployment_location = "microsoft"
-
-# db_name = os.environ.get('DB_NAME')
-# db_user_name = os.environ.get('DB_USER_NAME')
-# db_password = os.environ.get('DB_PASSWORD')
-# db_connector = os.environ.get('DB_CONNECTOR')
-# db_port = os.environ.get('DB_PORT')
-
-
-# if deployment_location == "local":
-#    db_host = os.environ.get('DB_HOST')
-#    database_path = "{}://{}:{}@{}:{}/{}".format(db_connector, db_user_name, db_password, db_host, db_port, db_name)
-
-# elif deployment_location == "gcp":
-#     unix_socket_path = os.environ.get('INSTANCE_UNIX_SOCKET')
-#     database_path = "{}://{}:{}@/{}?unix_sock={}/.s.PGSQL.{}".format(db_connector, db_user_name, db_password, db_name, unix_socket_path, db_port)
-
-# elif deployment_location == "microsoft":
-
-database_path = os.environ.get('AZURE_POSTGRESQL_CONNECTIONSTRING')
-
-# else:
-#     database_path = ""
-
 db = SQLAlchemy()
 
 '''
@@ -35,16 +11,8 @@ db = SQLAlchemy()
 
 '''
 
-def setup_db(app, database_path=database_path):
-    conn_str_params = {pair.split('=')[0]: pair.split('=')[1] for pair in database_path.split(';')}
-    database_path = 'postgresql://{dbuser}:{dbpass}@{dbhost}/{dbname}'.format(
-        dbuser=conn_str_params['User Id'],
-        dbpass=conn_str_params['Password'],
-        dbhost=conn_str_params['Server'],
-        dbname=conn_str_params['Database']
-    )
-    print(database_path)
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+def setup_db(app):
+    app.config["SQLALCHEMY_DATABASE_URI"] = app.config.get('DATABASE_URI')
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
