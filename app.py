@@ -43,8 +43,8 @@ elif os.environ.get('DEPLOYMENT_LOCATION') == 'azure':
     print("Loading environment.gcp_production.")
     app.config.from_object('environment.azure_production')
     setup_db(app)
-
-print("No environment detected.")
+else:
+  print("No environment detected.")
 
 #----------------------------------------------------------------------------#
 # Filters.
