@@ -1,33 +1,27 @@
-# flask-webapp-postgresql-db
+# Python (Flask) Web App with PostgreSQL and Key Vault
 
-Artists Booking Venues powered by Python (Flask) and PostgreSQL Database
+Artists Booking Venues powered by Python (Flask) and PostgreSQL Database.
+There is no user authentication or per-user data stored.
 
-## Development Setup
+![Screenshot of website landing page](./repo-thumbnail.png)
+
+The project is designed for deployment on Azure App Service with a PostgreSQL flexible server. See deployment instructions below.
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/john0isaac/flask-webapp-postgresql-db?devcontainer_path=.devcontainer/devcontainer.json)
+
+![Architecture Diagram: App Service, PostgreSQL server, Key Vault](./architecture-diagram.png)
+
+## Local Development
+
 
 1. **Download the project starter code locally**
 
   ```bash
-  git clone https://github.com/john0isaac/flask-webapp-postgresql-db.git
-  cd flask-webapp-postgresql-db
+  git clone https://github.com/john0isaac/flask-webapp-mysql-db.git
+  cd flask-webapp-mysql-db
   ```
 
-2.**Before and After editing your code, Use the commands below:**
-
-before editing anything pull new changes from GitHub.
-
-```bash
-git pull
-```
-
-Once you are done editing, you can push the local repository to your Github account using the following commands.
-
-```bash
-git add .
-git commit -m "your comment message"
-git push
-```
-
-3.**Initialize and activate a virtualenv using:**
+2.**Initialize and activate a virtualenv using:**
 
 ```bash
 python -m virtualenv venv
@@ -41,13 +35,13 @@ source venv/Scripts/activate
 deactivate
 ```
 
-4.**Install the dependencies:**
+3.**Install the dependencies:**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-5.**Run the development server:**
+4.**Run the development server:**
 
 ```bash
 export FLASK_APP=app.py
@@ -56,40 +50,11 @@ export FLASK_DEBUG=true
 flask run --reload
 ```
 
-6.**Verify on the Browser**
+5.**Verify on the Browser**
 
 Navigate to project homepage [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or [http://localhost:5000](http://localhost:5000)
 
-## Adding Routes
-
-- Create the html, css, js in the specified folder using the same folder structure.
-- Create a new route in the [app.py](./app.py) file with the name you want using only dashes to separate words.
-
-```PYTHON
-@app.route('NEW-ROUTE')
-```
-
-- Define your serving function using a unique name not used before in the whole application.
-
-```PYTHON
-def NEW_UNIQUE_NAME():
-```
-
-- Return your html file path using render_template.
-
-```PYTHON
-return render_template('FOLDER_PATH/FILE_PATH.html')
-```
-
-- Your newly created route should look like this.
-
-```PYTHON
-@app.route('NEW-ROUTE')
-def NEW_UNIQUE_NAME():
-    return render_template('FOLDER_PATH/FILE_PATH.html')
-```
-
-## Deploying to Google Cloud
+## Google Cloud Deployment
 
 1. Open the Google Cloud Shell and execute the following command:
 
@@ -126,7 +91,7 @@ env_variables:
   gcloud app deploy app.yaml
   ```
 
-## Deploying After Deleting Everything from Google Cloud
+### Deploying After Deleting Everything from Google Cloud
 
 1. Create a Cloud SQL instance using the following parameters:
     - Specify instance name and password.
