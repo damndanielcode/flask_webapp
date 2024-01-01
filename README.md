@@ -1,4 +1,4 @@
-# Python (Flask) Web App with PostgreSQL and Key Vault
+# Python (Flask) Web App with PostgreSQL
 
 Artists Booking Venues powered by Python (Flask) and PostgreSQL Database.
 There is no user authentication or per-user data stored.
@@ -9,7 +9,7 @@ The project is designed for deployment on Azure App Service with a PostgreSQL fl
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/john0isaac/flask-webapp-postgresql-db?devcontainer_path=.devcontainer/devcontainer.json)
 
-![Architecture Diagram: App Service, PostgreSQL server, Key Vault](./architecture-diagram.png)
+![Architecture Diagram: App Service, PostgreSQL server.](./architecture-diagram.png)
 
 ## Local Development
 
@@ -93,11 +93,11 @@ It is important to secure the databases in web applications to prevent unwanted 
 This infrastructure uses the following mechanisms to secure the PostgreSQL database:
 
 * Azure Firewall: The database is accessible only from other Azure IPs, not from public IPs. (Note that includes other customers using Azure).
-* Admin Username: Randomly generated and stored in Key Vault.
-* Admin Password: Randomly generated and stored in Key Vault.
+* Admin Username: A unique string generated based on the resource name (not random, but not a standard name, either).
+* Admin Password: Randomly generated and updated on each deploy.
 * PostgreSQL Version: Latest available on Azure, version 14, which includes security improvements.
 
-⚠️ For even more security, consider using an Azure Virtual Network to connect the Web App to the Database.
+⚠️ For even more security, consider using a Key Vault to store your database username and password plus an Azure Virtual Network to connect the Web App to the Database.
 
 ## Costs
 
@@ -107,7 +107,6 @@ You can try the [Azure pricing calculator](https://azure.microsoft.com/pricing/c
 
 * Azure App Service: Free Tier with shared CPU cores, 1 GB RAM. [Pricing](https://azure.microsoft.com/pricing/details/app-service/linux/)
 * PostgreSQL Flexible Server: Burstable Tier with 1 CPU core, 32GB storage. Pricing is hourly. [Pricing](https://azure.microsoft.com/pricing/details/postgresql/flexible-server/)
-* Key Vault: Standard tier with 2 secrets. Vaults are offered in two service tiers—standard and premium. [Pricing](https://azure.microsoft.com/pricing/details/key-vault/)
 
 ⚠️ To avoid unnecessary costs, remember to take down your app if it's no longer in use,
 either by deleting the resource group in the Portal or running `azd down`.
